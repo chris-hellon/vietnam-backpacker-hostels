@@ -1,6 +1,6 @@
 # Vietnam Backpacker Hostels
 
-![Vietnam Backpacker Hostels banner image]([https://vietnambackpackerhostels.blob.core.windows.net/main/vbh-git-banner.png](https://vietnambackpackerhostels.blob.core.windows.net/main/vbh-git-banner.png))
+![Vietnam Backpacker Hostels banner image](https://vietnambackpackerhostels.blob.core.windows.net/main/vbh-git-banner.png)
 
 https://vietnambackpackerhostels.com
 
