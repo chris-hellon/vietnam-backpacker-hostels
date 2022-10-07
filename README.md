@@ -4,7 +4,7 @@ https://vietnambackpackerhostels.com
 
 A .NET Core 6 Razor Page Web App for a hostel & travel company based in Vietnam.
 
-Tech Stack inludes:
+Tech Stack Includes:
 
 * .NET Core 6 Razor Pages
 * C#
