@@ -1,0 +1,120 @@
+﻿@model VietnamBackpackerHostels.UI.Pages.Shared.HeaderBannerPartialModel
+@using VietnamBackpackerHostels.UI.Pages.Shared
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    var bookNowModel = new HeaderBannerBookNowPartialModel(Model.Hostels);
+
+ var httpContext = HttpContextAccessor.HttpContext;
+
+ if (httpContext != null)
+ {
+     var currentPath = httpContext.Request.Path.Value != null ? httpContext.Request.Path.Value : "/";
+     var alwaysShadow = currentPath != "/login" && !Model.BannerImages.Any();
+     var bannerPages = currentPath == "/";
+
+    <header>
+        <!--Section: Navbar-->
+        <partial name="_NavigationPartial" model="new NavigationPartialModel(Model.HostelLocations, Model.TripLocations, alwaysShadow)" />
+
+        <!--Section: Navbar-->
+        @if (Model.BannerImages.Any() && bannerPages)
+        {
+            <!--Section: Header Carousel wrapper -->
+            var index = 0;
+            var cssClass = currentPath.Contains("/sleep-and-eat/") ? "d-none d-lg-block" : "";
+
+
+            <div id="headerBanner" class="@cssClass carousel slide carousel-fade @(currentPath.Contains("/explore") || currentPath.Contains("/book-a-bed") || currentPath.Contains("/trips-and-travel") ? "mb-0" : "")" data-mdb-ride="carousel">
+                @if (Model.BannerImages.Count() > 1)
+                {
+                    <!--Section: Header Carousel Indicators -->
+                    <div class="carousel-indicators">
+                        @foreach (var Image in Model.BannerImages)
+                        {
+                            <button type="button"
+                                    data-mdb-target="#headerBanner"
+                                    data-mdb-slide-to="@index"
+                                    class="@(index == 0 ? "active" : "")"
+                                    aria-current="true"
+                                    aria-label="Slide @(index + 1)"></button>
+
+                            index++;
+                        }
+                    </div>
+                    <!--Section: Header Carousel Indicators -->
+                }
+
+                <!--Section: Header Carousel Inner -->
+                <div class="carousel-inner">
+                    @{
+                        index = 0;
+                        foreach (var Image in Model.BannerImages)
+                        {
+                            Image.Index = index;
+
+                            <partial name="_HeaderBannerCarouselItemPartial" model="Image" />
+
+                            index++;
+                        }
+                    }
+                </div>
+                <!--Section: Header Carousel Inner -->
+
+                @if (Model.BannerImages.Count() > 1)
+                {
+                    <!--Section: Carousel Controls -->
+                    <button class="carousel-control-prev" type="button" data-mdb-target="#headerBanner" data-mdb-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-mdb-target="#headerBanner" data-mdb-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    <!--Section: Header Carousel Controls -->
+                }
+
+                @if (currentPath == "/" || currentPath.Contains("/sleep-and-eat"))
+                {
+
+                    <div class="container-fluid position-absolute text-center z-index-1 header-banner-book-now" style="z-index:1; bottom:6%" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-up" data-mdb-animation-delay="300" data-mdb-animation-duration="1200">
+                        <partial name="_HeaderBannerBookNowPartial" model="bookNowModel" />
+                    </div>
+                }
+            </div>
+            <!--Section: Header Carousel wrapper -->
+        }
+    </header>
+}
+
+<div class="modal fade" id="book-now-sign-in-modal" aria-labelledby="book-now-sign-in-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <!-- Pills navs -->
+                <ul class="nav nav-pills nav-justified mb-3" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active btn btn-secondary header-font text-white" id="mdb-tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">Login</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link btn-secondary btn header-font text-white" id="mdb-tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab" aria-controls="pills-register" aria-selected="false">Register</a>
+                    </li>
+                </ul>
+                <!-- Pills navs -->
+                <!-- Pills content -->
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="mdb-tab-login">
+                        <partial name="/Areas/Identity/Pages/Account/ModalLoginPartial.cshtml" model="bookNowModel" />
+                    </div>
+                    <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="mdb-tab-register">
+                        <partial name="/Areas/Identity/Pages/Account/ModalRegisterPartial.cshtml" model="bookNowModel" />
+                    </div>
+                </div>
+                <!-- Pills content -->
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+

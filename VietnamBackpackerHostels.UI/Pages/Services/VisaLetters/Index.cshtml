@@ -1,0 +1,60 @@
+﻿@page "/services/visa-letters"
+@model VietnamBackpackerHostels.UI.Pages.Services.VisaLetters.IndexModel
+@{     
+    ViewData["Title"] = "Visa Letters";
+
+    <div class="custom-height mt-n5 py-3 py-lg-5 bg-black">
+        <div class="container py-5">
+            <div class="row my-4">
+                <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                    <h1 class="display-4 fw-bold ls-tight">Visa Letters</h1>
+                    <h4 class="mb-0 text-gray text-shadow-0">No matter where you are in Vietnam, VBH has got you covered...</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-white rounded-6 position-relative pt-3 px-3 custom-mt">
+        <div class="row">
+            <div class="col-lg-6">
+                <p>Most nationalites need a visa to enter Vietnam.</p>
+                <p>Just let us know your information and we can help organize an invitation letter.</p>
+                <p>Once you have submitted this information, one of our awesome travel gurus will be in touch via email with the correct information specific to you and your travel needs.</p>
+            </div>
+            <div class="col-lg-6">
+                <form method="post">
+                    <div class="form-outline mb-4">
+                        <input asp-for="Input.Name" class="form-control" aria-required="true" />
+                        <label asp-for="Input.Name" class="form-label"></label>
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                        <label asp-for="Input.Email" class="form-label"></label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-outline mb-4 datepicker-disable-past position-relative" data-mdb-toggle-button="false" data-mdb-format="dd/mm/yyyy">
+                        <input asp-for="Input.DateOfArrival" type="text" class="form-control" data-mdb-toggle="datepicker" />
+                        <label asp-for="Input.DateOfArrival" class="form-label"></label>
+                        <span asp-validation-for="Input.DateOfArrival" class="text-danger"></span>
+                    </div>
+                    <div class="position-relative mb-4">
+                        <select asp-for="Input.Nationality" asp-items="@Model.Input.Nationalities" class="select" data-mdb-filter="true"></select>
+                        <label asp-for="Input.Nationality" class="form-label select-label"></label>
+                        <span asp-validation-for="Input.Nationality" class="text-danger"></span>
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Send</button>
+                </form>
+            </div>
+        </div>
+
+        <partial name="_PageCardSectionPartial" model="Model.RelatedServices" />
+    </div>
+
+}
+
+@section Scripts {
+    <script type="text/javascript">$("document").ready(function () {
+            $('#Input_Nationality').find('option:first').prop('hidden', true);
+        });</script>
+}

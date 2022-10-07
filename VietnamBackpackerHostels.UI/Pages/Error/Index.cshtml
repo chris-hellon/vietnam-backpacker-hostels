@@ -1,0 +1,33 @@
+﻿@page "/error/{statusCode?}"
+@model VietnamBackpackerHostels.UI.Pages.Error.IndexModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+@section Styles {
+    <style type="text/css">
+        .custom-mt {
+            margin-top: -280px;
+        }
+
+        @@media (max-width: 500px) {
+            .custom-mt {
+                margin-top: -485px;
+            }
+        }
+
+        body { background-color:var(--mdb-black);}
+    </style>
+}
+
+<div class="custom-height mt-n5 py-3 py-lg-5 bg-black">
+    <div class="container py-5 text-center">
+        <div class="row my-4">
+            <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                <h1 class="display-4 fw-bold ls-tight">@ViewData["Title"]</h1>
+                <h4 class="text-white">@Model.ExceptionMessage</h4>
+            </div>
+        </div>
+    </div>
+</div>
+

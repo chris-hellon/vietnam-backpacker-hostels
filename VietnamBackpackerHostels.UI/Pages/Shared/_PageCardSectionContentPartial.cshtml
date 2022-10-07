@@ -1,0 +1,78 @@
+﻿@model VietnamBackpackerHostels.Core.Models.PageSectionContent
+@using ProjectBase.Core.Utils
+
+<div class="@Model.CssClass col-md-12 mb-3" data-mdb-animation-show-on-load="false" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="@Model.AnimationDelay" data-mdb-animation-duration="800">
+    <div class="card h-100">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <div class="bg-image">
+                <img src="@Model.ImageUrl" class="img-fluid" data-mdb-lazy-src="@Model.ImageUrl"
+      data-mdb-lazy-placeholder="https://place-hold.it/2000x1195/ffffff/ffffff&text=Loading&fontsize=20" />
+            </div>
+        }
+        <div class="card-body d-flex flex-column">
+            @{
+                if (Model.Category == "Sleep & Eat" || Model.Category == "Explore")
+                {
+                    var categoryNavUrl = Model.Category == "Sleep & Eat" ? "/SleepAndEat/Index" : "/Explore/Index";
+
+                    if (!string.IsNullOrEmpty(Model.IconClass))
+                    {
+                        <div class="text-gray header-font text-shadow-0 mb-3 mt-1">
+                            <a class="text-gray" asp-page="@categoryNavUrl">
+                                <i class="fas @Model.IconClass"></i>
+                                @Model.Category
+                            </a>
+                        </div>
+                    }
+                    <h5 class="card-title text-black">@Model.Title</h5>
+                }
+                else
+                {
+                    @if (!string.IsNullOrEmpty(Model.IconClass))
+                    {
+                        <div class="text-gray header-font text-shadow-0 mb-3 mt-1">
+                            <i class="fas @Model.IconClass"></i>
+                            @Model.Category
+                        </div>
+                    }
+                    <h5 class="card-title text-black">@Model.Title</h5>
+                }
+            }
+
+            <div class="card-text">
+                @Html.Raw(Model.Body)
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.Location))
+            {
+                <span class="text-black text-start header-font text-shadow-0 mb-4 small d-block w-fit-content">
+                    <i class="fas fa-location-pin"></i>
+                    @Model.Location
+                </span>
+            }
+
+            @if (Model.NavigatePage != null)
+            {
+                <div class="mt-auto">
+                    @if (Model.TripName != null)
+                    {
+                        <a asp-page="@Model.NavigatePage" asp-route-category="@Model.NavigatePageCategory" asp-route-tripName="@Model.TripName" class="btn btn-primary align-bottom">Read More  <i class="fas fa-angle-right ms-1"></i></a>
+                    }
+                    else if (Model.NavigatePage.Contains("https://www."))
+                    {
+                        <a href="@Model.NavigatePage" target="_blank" class="btn btn-primary align-bottom">Read More  <i class="fas fa-angle-right ms-1"></i></a>
+                    }
+                    else if (!string.IsNullOrEmpty(Model.NavigatePageCategory))
+                    {
+                        <a asp-page="@Model.NavigatePage" asp-route-category="@Model.NavigatePageCategory" class="btn btn-primary align-bottom">Read More  <i class="fas fa-angle-right ms-1"></i></a>
+                    }
+                    else
+                    {
+                        <a asp-page="@Model.NavigatePage" class="btn btn-primary align-bottom">Read More  <i class="fas fa-angle-right ms-1"></i></a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

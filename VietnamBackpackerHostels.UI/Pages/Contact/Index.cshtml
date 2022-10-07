@@ -1,0 +1,97 @@
+﻿@page "/contact"
+@model VietnamBackpackerHostels.UI.Pages.Contact.IndexModel
+@using AspNetCore.ReCaptcha
+@{
+    ViewData["Title"] = "Contact";
+
+    <div class="custom-height mt-n5 py-5 bg-black">
+        <div class="container py-5">
+            <div class="row my-4">
+                <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                    <h1 class="display-4 fw-bold ls-tight">Contact</h1>
+                    <h4 class="mb-0 text-gray text-shadow-0">Remember, there are no silly questions</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container custom-mt bg-white rounded-top">
+        <div class="row">
+            <div class="col-lg-6 p-0">
+                <h3 class="bg-primary text-center py-2">Get In Touch</h3>
+                @if (Model.HostelLocations.Any())
+                {
+                    <div class="row p-3">
+                        <p>We'd love to hear about any of your questions.</p>
+                        <p>Fill out the form to send a question to the helpdesk, or contact a hostel directly using the contact details below.</p>
+
+
+                    </div>
+                }
+            </div>
+            <div class="col-lg-6 p-0">
+                <h3 class="bg-primary text-center py-2">Send Us A Message</h3>
+                <div class="row p-3">
+                    <form method="post" id="contact-form">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <!-- Name input -->
+                        <div class="form-outline mb-4">
+                            <input asp-for="Name" class="form-control" autocomplete="username" aria-required="true" />
+                            <label asp-for="Name" class="form-label"></label>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
+                            <label asp-for="Email" class="form-label"></label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Message input -->
+                        <div class="form-outline mb-4">
+                            <textarea asp-for="Message" class="form-control" rows="4" style="height:129px"></textarea>
+                            <label asp-for="Message" class="form-label"></label>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+
+                        <recaptcha />
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block mb-4 mt-4">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row py-3">
+            @foreach (var hostelLocation in Model.HostelLocations)
+            {
+                if (hostelLocation.Hostels.Any())
+                {
+                    foreach (var hostel in hostelLocation.Hostels)
+                    {
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="text-black mb-3">
+                                        @hostelLocation.Name
+                                    </h5>
+                                    <h6 class="text-gray text-shadow-0 mb-3">
+                                        @hostel.Name.Replace(hostelLocation.Name + " - ", "")
+                                    </h6>
+                                    <p class="mb-0">
+                                        <i class="fas fa-phone dark-grey-text" aria-hidden="true"></i> @hostel.ContactNumber
+                                    </p>
+                                    <p class="mb-0">
+                                        <i class="fas fa-location-pin dark-grey-text" aria-hidden="true"></i> @hostel.AddressLine1, @hostel.AddressLine2
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+}

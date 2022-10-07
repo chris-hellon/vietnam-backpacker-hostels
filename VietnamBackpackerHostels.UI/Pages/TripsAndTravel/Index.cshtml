@@ -1,0 +1,15 @@
+﻿@page "/trips-and-travel"
+@model VietnamBackpackerHostels.UI.Pages.TripsAndTravel.IndexModel
+@using VietnamBackpackerHostels.UI.Pages.Shared;
+@{
+    ViewData["Title"] = "Trips & Travel";
+    ViewData["SubTitle"] = "Where to next?";
+
+    <partial name="_PageCategoryPartial" model="new List<VietnamBackpackerHostels.Core.Models.PageSection>() { Model.TripLocationsSection, Model.HostelLocationsSection }" />
+
+    <!--Section: Design Your Trip-->
+    var designYourTripCssClass = "bg-primary";
+    <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel(designYourTripCssClass)" />
+    <!--Section: Design Your Trip-->
+}
+

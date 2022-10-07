@@ -1,0 +1,113 @@
+﻿@model VietnamBackpackerHostels.UI.Pages.Shared.NavigationPartialModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using ProjectBase.Core.Utils
+
+<nav class="navbar navbar-expand-lg navbar-dark d-lg-block fixed-top @Model.CssClass" style="z-index: 2000;" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-down" data-mdb-animation-delay="300" data-mdb-animation-duration="1200">
+    <div class="container-fluid">
+        <!--Section: Navbar brand -->
+        <a class="navbar-brand nav-link" asp-page="/Home/Index">
+            <img class="d-inline-block" src="https://vietnambackpackerhostels.azureedge.net/main/red-buffalo-logo.png" alt="Navigation bar brand image" />
+            <div class="header-company-name d-none">
+                <span class="header-font display-6 d-block">Vietnam</span>
+                <small class="header-font d-block">Backpacker Hostels</small>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="main-navbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                @{
+                    var httpContext = HttpContextAccessor.HttpContext;
+
+                    if (httpContext != null)
+                    {
+                        var currentPath = httpContext.Request.Path.Value != null ? httpContext.Request.Path.Value : "/";
+
+                        @*<li class="nav-item">
+                            <a class="nav-link @(currentPath == "/" ? "active" : "" )" asp-page="/Home/Index">Home</a>
+                        </li>*@
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @(currentPath.Contains("/sleep-and-eat") || currentPath.Contains("/book-a-bed") ? "active" : "" )" asp-page="/SleepAndEat/Index" id="navbarDropdownSleepAndEat" role="button" aria-expanded="false" aria-haspopup="true">Sleep & Eat</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownSleepAndEat">
+                                @if (Model.HostelLocations.Any())
+                                {
+                                    foreach (var hostelLocation in Model.HostelLocations)
+                                    {
+                                        var hostelLocationFriendlyUrl = hostelLocation.Name.UrlFriendly();
+                                        var friendlyUrl = $"/sleep-and-eat/{hostelLocationFriendlyUrl}";
+
+                                        <li>
+                                            <a class="dropdown-item text-dark @(currentPath == friendlyUrl ? "active" : "" )" asp-page="/Hostel/Index" asp-route-category="@hostelLocationFriendlyUrl">@hostelLocation.Name</a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @(currentPath.Contains("/explore") ? "active" : "" )" asp-page="/Explore/Index" id="navbarDropdownTripsAndTravel" role="button" aria-expanded="false" aria-haspopup="true">Explore</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownTripsAndTravel">
+                                @if (Model.TripLocations.Any())
+                                {
+                                    foreach (var tripLocation in Model.TripLocations)
+                                    {
+                                        var tripLocationFriendlyUrl = tripLocation.Name.UrlFriendly();
+                                        var friendlyUrl = $"/explore/{tripLocationFriendlyUrl}";
+
+                                        <li>
+                                            <a class="dropdown-item text-dark @(currentPath == friendlyUrl ? "active" : "" )" asp-page="/TripCategory/Index" asp-route-category="@tripLocationFriendlyUrl">@tripLocation.Name</a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(currentPath == "/trips-and-travel" ? "active" : "" )" asp-page="/TripsAndTravel/Index">Trips &amp; Travel</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @(currentPath.Contains("/services") ? "active" : "" )" asp-page="/Services/Index" id="navbarDropdownServices" role="button" aria-expanded="false">Services</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownServices">
+                                <li>
+                                    <a class="dropdown-item text-dark @(currentPath == "/services/visas" ? "active" : "" )" asp-page="/Services/AirportTransfer/Index">Airport Transfer</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-dark @(currentPath == "/services/visa-letters" ? "active" : "" )" asp-page="/Services/VisaLetters/Index">Visa Letters</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-dark @(currentPath == "/services/travel-insurance" ? "active" : "" )" asp-page="/Services/TravelInsurance/Index">Travel Insurance</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentPath == "/contact" ? "active" : "" )" asp-page="/Contact/Index">Contact</a>
+                        </li>
+                    }
+                }
+
+                <partial name="_LoginPartial" />
+            </ul>
+
+            <ul class="navbar-nav list-inline">
+                <!--Section: Social Icons -->
+                <li class="">
+                    <a class="nav-link" href="https://www.youtube.com/channel/UCtpYKc-XtNS1XkgFGIp-HCw" rel="nofollow"
+                       target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a class="nav-link" href="https://www.facebook.com/vietnambackpackerhostels" rel="nofollow" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.instagram.com/vbh_vietnam" rel="nofollow" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

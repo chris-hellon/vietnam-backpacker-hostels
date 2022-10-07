@@ -1,0 +1,70 @@
+﻿@page "/login"
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+@section Styles {
+    <style type="text/css">
+        #login {
+            background-image: url(https://vietnambackpackerhostels.azureedge.net/main/home-5.jpg);
+            height: 100vh;
+        }
+
+      /* Height for devices larger than 576px */
+      @@media (min-width: 992px) {
+        #login {
+            margin-top: -58.59px;
+        }
+      }
+
+    </style>
+}
+
+<div id="login" class="bg-image shadow-2-strong">
+    <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-md-8">
+                    <form class="bg-white  rounded-5 shadow-5-strong p-5" method="post">
+                        <h1 class="text-center mb-4 text-black">@ViewData["Title"].ToString()</h1>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                            <label asp-for="Input.Email" class="form-label"></label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                            <label asp-for="Input.Password" class="form-label"></label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- 2 column grid layout for inline styling -->
+                        <div class="row mb-4">
+                            <div class="col d-flex justify-content-center">
+                                <!-- Checkbox -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked="" asp-for="Input.RememberMe" />
+                                    <label class="form-check-label" asp-for="Input.RememberMe"> @Html.DisplayNameFor(m => m.Input.RememberMe) </label>
+                                </div>
+                            </div>
+
+                            <!--<div class="col text-center">-->
+                                <!-- Simple link -->
+                                <!--<a href="/forgot-password">Forgot password?</a>
+                            </div>-->
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

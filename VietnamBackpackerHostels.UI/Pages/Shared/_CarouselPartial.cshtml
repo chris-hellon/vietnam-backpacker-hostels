@@ -1,0 +1,49 @@
+﻿@model VietnamBackpackerHostels.UI.Pages.Shared.CarouselPartialModel
+
+@{
+    var index = 0;
+
+    <div id="@Model.Id" class="carousel slide small-carousel @(Model.Rounded ? "rounded-6" : "")" data-mdb-ride="carousel">
+        <!--Section: Header Carousel Indicators -->
+        <div class="carousel-indicators">
+            @foreach (var immage in Model.Items)
+            {
+                <button type="button"
+                        data-mdb-target="#@(Model.Id)"
+                        data-mdb-slide-to="@index"
+                        class="@(index == 0 ? "active" : "")"
+                        aria-current="true"
+                        aria-label="Slide @(index + 1)"></button>
+
+                index++;
+            }
+        </div>
+        <!--Section: Header Carousel Indicators -->
+
+        <div class="carousel-inner">
+            @{
+                if (Model.Items.Any())
+                {
+                    index = 0;
+                    foreach (var item in Model.Items)
+                    {
+                        <div class="carousel-item @(Model.Rounded ? "rounded-6" : "") @(index == 0 ? "active": "")">
+                            <partial name="_CarouselItemPartial" model="item" />
+                        </div>
+
+                        index++;
+                    }
+                }
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-mdb-target="#@Model.Id" data-mdb-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-mdb-target="#@Model.Id" data-mdb-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+}

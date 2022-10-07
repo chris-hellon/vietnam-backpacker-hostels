@@ -1,0 +1,58 @@
+﻿@page "/about-us/join-our-crew"
+@model VietnamBackpackerHostels.UI.Pages.AboutUs.JoinOurCrew.IndexModel
+@section Styles {
+    <style type="text/css">
+        .custom-mt {
+            margin-top: -280px;
+        }
+
+        @@media (max-width: 500px) {
+            .custom-mt {
+                margin-top: -485px;
+            }
+        }
+    </style>
+}
+
+@{
+    ViewData["Title"] = "Join Our Crew";
+
+    <!--Section: Category Header-->
+    <div class="custom-height mt-n5 py-3 py-lg-5 bg-black">
+        <div class="container py-5">
+            <div class="row my-4">
+                <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                    <h1 class="display-4 fw-bold ls-tight">Join Our Crew</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Section: Category Header-->
+
+    <!--Section: Categories-->
+    <div class="container bg-white rounded-6 position-relative pt-3 px-3 custom-mt">
+        <div class="row">
+            <p>VBH is always looking for fantastic people to join us for a good time, and a long time. We want visitors to this wonderful country to experience it in our own special way and you could be apart of bringing that experience to life.</p>
+            <p>Our vision is to provide the world's best hostels by delivering quality products and unique experience to our customers. If this excites you, and you'd like to do the same then we'd love you to inquire about how you can grow your career along with us.</p>
+            <p>But we're not just looking for anyone, we want to work with people who share our values.</p>
+            <hr class="hr" />
+            @if (Model.JobVacancies.Any())
+            {
+                <h4 class="text-black mb-3 text-center">Current Positions</h4>
+                @foreach (var jobVacancy in Model.JobVacancies)
+                {
+                    <partial name="AboutUs/JoinOurCrew/Shared/_JobVacancyPartial" model="jobVacancy" />
+                }
+            }
+            <hr class="hr" />
+            <p>If you wish to apply to any of the above jobs, please send a copy of your CV, and a Cover Letter stating why you wish to work for VBH to <a href="mailto:info@vietnambackpackerhostels.com"><strong>info@vietnambackpackerhostels.com</strong></a>.</p>
+        </div>
+    </div>
+    <!--Section: Categories-->
+
+    <!--Section: Design Your Trip-->
+    var designYourTripCssClass = "bg-dark";
+    <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel(designYourTripCssClass)" />
+    <!--Section: Design Your Trip-->
+}
+

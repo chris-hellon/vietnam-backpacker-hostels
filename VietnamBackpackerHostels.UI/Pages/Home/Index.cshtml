@@ -1,0 +1,61 @@
+﻿@page "/"
+@model VietnamBackpackerHostels.UI.Pages.Home.IndexModel
+@using ProjectBase.Core.Utils
+@using VietnamBackpackerHostels.UI.Pages.Shared
+@using VietnamBackpackerHostels.UI.Models.Shared
+
+@section Styles {
+    <style type="text/css">
+        @@media(max-width: 992px) {
+            .home-page-intro .row:first-of-type {
+                margin-top: -363px;
+                padding-top: 315px !important;
+            }
+            .header-banner-book-now .rounded-pill {
+                border-radius: 0.75rem !important;
+                --mdb-bg-opacity: 0.9;
+            }
+        }
+    </style>
+}
+
+@{
+    if (Model.Introduction != null && Model.Introduction.Any())
+    {
+        <!--Section: Introduction-->
+        <div class="container-fluid home-page-intro mt-n5 p-0">
+            <partial name="_LocalTripsBannerPartial" model="Model.Introduction" />
+        </div>
+        <!--Section: Introduction-->
+    }
+
+    if (Model.WhereToNext != null)
+    {
+        <!--Section: Check it out-->
+        <div class="container mt-4 position-relative px-3">
+            <partial name="_PageCardSectionPartial" model="Model.WhereToNext" />
+        </div>
+        <!--Section: Check it out-->
+    }
+
+    <!--Section: Design your trip-->
+    <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel()" />
+    <!--Section: Design your trip-->
+
+    if (Model.CheckItOut != null)
+    {
+        <!--Section: Check it out-->
+        <div class="container mt-4 position-relative px-3">
+            <partial name="_PageCardSectionPartial" model="Model.CheckItOut" />
+        </div>
+        <!--Section: Check it out-->
+    }
+}
+
+
+
+
+
+
+
+

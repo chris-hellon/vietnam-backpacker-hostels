@@ -1,0 +1,80 @@
+﻿@model VietnamBackpackerHostels.UI.Pages.Shared.HeaderBannerBookNowPartialModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using ProjectBase.Core.Utils;
+
+@{
+    var cssClass = Model.HostelPage ? "col-lg-12" : "col-lg-3";
+
+    <form method="post" asp-page-handler="ContinueAsGuestAndBook">
+        <div class="container p-3 bg-primary rounded-pill shadow-2-strong">
+            <div class="row d-flex align-items-center text-center">
+                <div class="d-lg-none col-md-12 header-banner-book-now-title">
+                    <h2 class="header-font text-white">Book a Bed</h2>
+                    <hr class="hr mb-3 mt-0" />
+                </div>
+                @{
+                    var httpContext = HttpContextAccessor.HttpContext;
+
+                    if (httpContext != null)
+                    {
+                        var currentPath = httpContext.Request.Path.Value != null ? httpContext.Request.Path.Value : "/";
+
+                        <div class="@cssClass @(Model.HostelPage && Model.Hostels.Where(h => currentPath.Contains(h.Location.Name.UrlFriendly())).Any() ? "d-none" : "") mb-3 mb-lg-0 text-center">
+                            <div class="md-form m-0 position-relative">
+                                <select asp-for="@Model.Id" class="select w-100 text-center rounded-pill pick-a-date m-0 header-font text-white cursor-pointer">
+                                    <option value="" disabled selected>Choose a Hostel</option>
+                                    @if (Model.Hostels.Any())
+                                    {
+                                        foreach (var hostel in Model.Hostels)
+                                        {
+                                            var urlFriendly = $"/sleep-and-eat/{hostel.Location.Name.UrlFriendly()}";
+                                            if (currentPath.Contains(urlFriendly))
+                                            {
+                                                <option value="@hostel.Id" selected>@hostel.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@hostel.Id">@hostel.Name</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                                <span asp-validation-for="@Model.Id" class="text-white"></span>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div class="@cssClass mb-3 mb-lg-0 text-center">
+                    <div class="md-form m-0 datepicker-disable-past position-relative" id="CheckInDatePicker" data-mdb-toggle-button="false" data-mdb-format="dd/mm/yyyy">
+                        <input asp-for="@Model.CheckInDate" placeholder="Check In Date" type="text" class="form-control text-center rounded-pill pick-a-date m-0 header-font text-white cursor-pointer" data-mdb-toggle="datepicker" />
+                        <span asp-validation-for="@Model.CheckInDate" class="text-white"></span>
+                    </div>
+                </div>
+                <div class="@cssClass mb-3 mb-lg-0 text-center">
+                    <div class="md-form m-0 datepicker-disable-past position-relative" id="CheckOutDatePicker" data-mdb-toggle-button="false" data-mdb-format="dd/mm/yyyy">
+                        <input asp-for="@Model.CheckOutDate" placeholder="Check Out Date" type="text" class="form-control text-center rounded-pill pick-a-date m-0 header-font text-white cursor-pointer" data-mdb-toggle="datepicker" />
+                        <span asp-validation-for="@Model.CheckOutDate" class="text-white"></span>
+                    </div>
+                </div>
+                <div class="@cssClass">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <button type="submit" class="btn btn-secondary m-0 rounded-pill w-100">
+                            Check availability
+                        </button>
+                    }
+                    else
+                    {
+                        <a class="btn btn-secondary m-0 rounded-pill w-100" id="check-availability-button">
+                            Check availability
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+
+

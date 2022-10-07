@@ -1,0 +1,71 @@
+﻿@page "/about-us"
+@model VietnamBackpackerHostels.UI.Pages.AboutUs.IndexModel
+@using ProjectBase.Core.Utils;
+
+@section Styles {
+    <style type="text/css">
+        .custom-mt {
+            margin-top: -280px;
+        }
+
+        @@media (max-width: 500px) {
+            .custom-mt {
+                margin-top: -485px;
+            }
+        }
+    </style>
+}
+
+@{
+    ViewData["Title"] = "About Us";
+
+    <div class="custom-height mt-n5 py-3 py-lg-5 bg-black">
+        <div class="container py-5">
+            <div class="row my-4">
+                <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                    <h1 class="display-4 fw-bold ls-tight">@ViewData["Title"]</h1>
+                    @if (ViewData["Subtitle"] != null)
+                    {
+                        <h4 class="mb-0 text-gray text-shadow-0">@ViewData["SubTitle"]</h4>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    if (Model.Categories.PageSectionContent.Any())
+    {
+        <!--Section: Locations-->
+        <div class="container bg-white rounded-6 position-relative pt-3 px-3 custom-mt">
+            <div class="row">
+                <p>In December 2004, two Aussies living in Hanoi converted a former Diplomat's house into Vietnam's first and only international style Backpackers' Hostel. The idea was simple, "Let's make a place where we'd want to stay". So the hostel is kept laidback, safe, clean and social. Now, due to the amazing support of thousands of individual travellers that we have had the privilege of calling our guests and friends, we have grown to include the following locations:</p>
+
+                @if (Model.HostelLocations.Any())
+                {
+                    foreach (var hostelLocation in Model.HostelLocations)
+                    {
+                        <partial name="AboutUs/Shared/_HostelLocationPartial" model="hostelLocation" />
+                    }
+                }
+
+                @if (Model.Trips.Any())
+                {
+                    foreach (var trip in Model.Trips)
+                    {
+                        <partial name="AboutUs/Shared/_TripLocationPartial" model="trip" />
+                    }
+                }
+
+                <p>We haven't forgotten that it is the people you meet while travelling that make the good times and great memories. So to get the parties started, we have a Happy Hours everyday in all our hostels, as well as nightly drink specials in the bar and restaurant areas. Our friendly and knowledgeable staff on the travel desk will help you make the most of your time in Vietnam by planning local or full country itineraries, all with your customized wants in mind and at an affordable cost.</p>
+                <p>If you have any questions about the hostels, our tours or Vietnam itself, please use the contact form in “Get In Touch” to send us your enquries or livechat us now. We will be only too happy to answer your questions. We look forward to meeting you in the near future.</p>
+            </div>
+
+            <partial name="_PageCardSectionPartial" model="Model.Categories" />
+        </div>
+    }
+
+    <!--Section: Design Your Trip-->
+    var designYourTripCssClass = "bg-dark";
+    <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel(designYourTripCssClass)" />
+    <!--Section: Design Your Trip-->
+}

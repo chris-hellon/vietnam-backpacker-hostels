@@ -1,0 +1,16 @@
+﻿@page "/explore"
+@model VietnamBackpackerHostels.UI.Pages.Explore.IndexModel
+@using VietnamBackpackerHostels.UI.Pages.Shared;
+
+@{
+    ViewData["Title"] = "Explore";
+    ViewData["SubTitle"] = "It's rude to keep your passport waiting...";
+
+    <partial name="_PageCategoryPartial" model="new List<VietnamBackpackerHostels.Core.Models.PageSection>() { Model.Locations }" />
+
+    <!--Section: Design Your Trip-->
+    var designYourTripCssClass = "bg-primary";
+    <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel(designYourTripCssClass)" />
+    <!--Section: Design Your Trip-->
+}
+

@@ -1,0 +1,10 @@
+﻿using System;
+namespace VietnamBackpackerHostels.Core.Models
+{
+    public class TripImportantInformation
+    {
+        public int Id { get; set; }
+        public string Header { get; set; } = string.Empty;
+        public string Content { get; set; } = string.Empty;
+    }
+}

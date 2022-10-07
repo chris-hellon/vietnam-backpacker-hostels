@@ -1,0 +1,13 @@
+﻿@model VietnamBackpackerHostels.Core.Models.Trip
+@using ProjectBase.Core.Utils
+
+<div class="col-lg-4 mb-3">
+    <div class="card bg-dark">
+        <a class="mask" asp-page="/Trip/Index" asp-route-category="@Model.Location.Name.UrlFriendly()" asp-route-tripName="@Model.Title.UrlFriendly()"></a>
+        <div class="card-body text-center">
+            <h5 class="mb-0">
+                @Model.Title
+            </h5>
+        </div>
+    </div>
+</div>

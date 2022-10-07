@@ -1,0 +1,52 @@
+﻿@model VietnamBackpackerHostels.UI.Pages.Shared.HeaderBannerBookNowPartialModel
+
+<div class="text-center mb-3">
+    <p>Sign in with:</p>
+</div>
+
+<p class="text-center">or:</p>
+
+<form method="post" id="booking-login-form">
+    @Html.HiddenFor(m => m.LoginInput.CheckInDate)
+    @Html.HiddenFor(m => m.LoginInput.CheckOutDate)
+    @Html.HiddenFor(m => m.LoginInput.Id)
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+        <input asp-for="LoginInput.Email" class="form-control" />
+        <label asp-for="LoginInput.Email" class="form-label"></label>
+        <span asp-validation-for="LoginInput.Email" class="text-danger"></span>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+        <input asp-for="LoginInput.Password" class="form-control" />
+        <label asp-for="LoginInput.Password" class="form-label"></label>
+        <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
+    </div>
+
+    <!-- 2 column grid layout for inline styling -->
+    <div class="row mb-4">
+        <div class="col d-flex justify-content-center">
+            <!-- Checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked="" asp-for="LoginInput.RememberMe" />
+                <label class="form-check-label" asp-for="LoginInput.RememberMe"> @Html.DisplayNameFor(m => m.LoginInput.RememberMe) </label>
+            </div>
+        </div>
+
+        <!--<div class="col">-->
+            <!-- Simple link -->
+            <!--<a href="#!">Forgot password?</a>
+        </div>-->
+    </div>
+
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block" asp-page-handler="LoginAndBook">Sign in</button>
+
+    <!-- Register buttons -->
+    <button type="submit" class="btn btn-secondary btn-block mt-2" asp-page-handler="ContinueAsGuestAndBook" asp-route-login="true" formnovalidate="formnovalidate">Continue as a Guest</button>
+</form>

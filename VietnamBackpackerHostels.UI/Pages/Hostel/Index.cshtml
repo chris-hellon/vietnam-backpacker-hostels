@@ -1,0 +1,277 @@
+﻿@page "/sleep-and-eat/{category}"
+@model VietnamBackpackerHostels.UI.Pages.Hostel.IndexModel
+@using ProjectBase.Core.Utils
+@using VietnamBackpackerHostels.UI.Models.Shared
+@using VietnamBackpackerHostels.UI.Pages.Shared
+
+@section Styles {
+    <style type="text/css">
+        .small-carousel .carousel-item {
+            height: 450px;
+        }
+
+        .rounded-pill {
+            border-radius: 0rem !important;
+        }
+
+        .header-banner-book-now .col-lg-12.mb-3 {
+            margin-bottom: 1rem !important;
+        }
+
+        .header-banner-book-now-title {
+            display: block !important;
+        }
+
+        @@media(max-width: 992px) {
+            .small-carousel .carousel-item {
+                height: 250px;
+            }
+        }
+    </style>
+}
+@{
+    ViewData["Title"] = Model.SelectedHostel.Location.Name;
+
+    var index = 0;
+    string modalId = string.Empty;
+    string imageSrc = string.Empty;
+    string altText = string.Empty;
+    var multiCarouselItems = new List<MultiCarouselItemPartialModel>();
+
+
+    <!--Section: Booking Header-->
+    <div class="custom-height mt-n5 py-3 py-lg-5 bg-black parallax">
+        <div class="container py-5">
+            <div class="row my-4">
+                <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                    <h1 class="display-4 fw-bold ls-tight">Sleep & Eat</h1>
+                    <h4 class="mb-0 text-light opacity-50">
+                        @Model.SelectedHostel.Name
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container custom-mt">
+        <div class="row g-0 mb-3 align-items-center">
+            <div class="col-lg-7 mb-4 mb-lg-0" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                @if (Model.BannerImages.Any())
+                {
+                    <div class="lightbox">
+                        @{
+                            var carouselItems = new List<CarouselItemPartialModel>();
+
+                            foreach (var image in Model.BannerImages)
+                            {
+                                carouselItems.Add(new CarouselItemPartialModel(image.ImageUrl));
+                            }
+
+                            var carouselId = $"mobile-hostel-banner-carousel";
+
+                            <partial name="_CarouselPartial" model="new CarouselPartialModel(carouselId, carouselItems, true)" />
+                        }
+                    </div>
+                }
+            </div>
+            <div class="col-lg-5">
+                <div id="book-now-box" class="card cascading-left rounded-6 shadow-5" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-right" data-mdb-animation-delay="400" data-mdb-animation-duration="800">
+                    <div class="card-body px-4 p-4 p-md-5 p-lg-4 p-xl-5">
+                        @{
+                            <div class="row g-0">
+                                <div class="col-lg-12 header-banner-book-now">
+                                    <partial name="_HeaderBannerBookNowPartial" model="new HeaderBannerBookNowPartialModel(Model.Hostels, true)" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Section: Booking Header-->
+
+    <!--Section: Short Introduction-->
+    <div class="container mt-5 position-relative mb-4 px-3" data-mdb-animation-show-on-load="false" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="1200">
+        <section class="text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Raw(Model.SelectedHostel.ShortIntroduction)
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--Section: Short Introduction-->
+
+    if (Model.SelectedHostel.SlideshowImages.Any())
+    { <!--Section: Slideshow Images-->
+        <div class="container-fluid" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="1200">
+            <div class="row">
+                <div class="lightbox p-0">
+                    @{
+                        multiCarouselItems = new List<MultiCarouselItemPartialModel>();
+
+                        foreach (var slideshowImage in Model.SelectedHostel.SlideshowImages)
+                        {
+                            multiCarouselItems.Add(new MultiCarouselItemPartialModel(slideshowImage));
+                        }
+
+                        <partial name="_MultiCarouselPartial" model="new MultiCarouselPartialModel(multiCarouselItems)" />
+                    }
+                </div>
+            </div>
+        </div>
+        <!--Section: Slideshow Images-->
+    }
+
+    <!--Section: Introduction-->
+    <div class="container mt-5 position-relative mb-4 px-3" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="1200">
+        <section class="text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    @Html.Raw(Model.SelectedHostel.Introduction)
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" onclick="scrollToElement('#book-now-box', true);">
+                        Book Now <i class="fas fa-angle-right ms-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--Section: Introduction-->
+
+    <!--Section: Getting There-->
+    <div class="container-fluid py-5 bg-black">
+        <div class="container position-relative p-3 text-white">
+            <section class="text-center">
+                <div class="row">
+                    <div class="col-lg-6 mb-3 mb-lg-0" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                        <h3 class="mb-4">Getting There</h3>
+                        @Html.Raw(Model.SelectedHostel.GettingThere)
+                        <a class="btn btn-primary" asp-page="/Services/AirportTransfer/Index">Book A Transfer Now <i class="fas fa-angle-right ms-1"></i></a>
+                    </div>
+                    <div class="col-lg-6" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in-right" data-mdb-animation-delay="400" data-mdb-animation-duration="800">
+                        <iframe id="google-map" class="w-100 h-100 m-0 p-0" frameborder="0" style="border:0" src="@($"https://www.google.com/maps/embed/v1/place?q=place_id:{Model.SelectedHostel.GoogleMapsKey}&key=AIzaSyAiYLmSCzYGXOdsJwXiu8GZ9c9UnHTtlgQ")" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!--Section: Getting There-->
+
+    if (Model.SelectedHostel.LocalTrips.Any())
+    {
+        <!--Section: Local Trips Desktop-->
+        <div class="container-fluid position-relative p-0 bg-primary d-none d-lg-block">
+            <section>
+                <h3 class="py-5 text-center text-white m-0" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="1200"><strong>Things To Do</strong></h3>
+
+                <partial name="_LocalTripsBannerPartial" model="Model.SelectedHostel.LocalTrips.Select(lt => new LocalTripBannerPartialModel(lt.Title, lt.Description, lt.ImageUrl))" />
+            </section>
+        </div>
+        <!--Section: Local Trips Desktop-->
+
+        <!--Section: Local Trips Mobile-->
+        <div class="container-fluid bg-primary d-block d-lg-none">
+            <div class="row">
+                <h3 class="py-5 text-center text-white m-0" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="1200"><strong>Things To Do</strong></h3>
+                @{
+                    multiCarouselItems = new List<MultiCarouselItemPartialModel>();
+
+                    index = 0;
+
+                    foreach (var localTrip in Model.SelectedHostel.LocalTrips)
+                    {
+                        modalId = "localTripModal" + index;
+                        altText = $"<h5>{localTrip.Title}</h5>{localTrip.Description.Replace("\\r", " ").Replace("\\n", " ")}";
+
+                        multiCarouselItems.Add(new MultiCarouselItemPartialModel(localTrip.ImageUrl, altText, modalId, localTrip.Title));
+
+                        index++;
+                    }
+
+                    <partial name="_MultiCarouselPartial" model="new MultiCarouselPartialModel(multiCarouselItems)" />
+                }
+            </div>
+        </div>
+        <!--Section: Local Trips Mobile-->
+
+        if (Model.SelectedHostel.Rooms.Any())
+        {
+            index = 0;
+
+            <!--Section: Rooms Desktop-->
+            <div class="container-fluid bg-black d-none d-lg-block">
+                <div class="row">
+                    <h3 class="py-5 text-center text-white m-0" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="1200"><strong>Rooms</strong></h3>
+                    <div class="lightbox p-0 m-0">
+                        @{
+                            multiCarouselItems = new List<MultiCarouselItemPartialModel>();
+
+                            index = 0;
+
+                            foreach (var room in Model.SelectedHostel.Rooms)
+                            {
+                                altText = $"<h5>{room.RoomType}</h5>{room.RoomDescription.Replace("\\r", " ").Replace("\\n", " ")}";
+
+                                multiCarouselItems.Add(new MultiCarouselItemPartialModel(room.RoomImageUrl, altText, null, null, room.RoomType));
+                            }
+
+                            <partial name="_MultiCarouselPartial" model="new MultiCarouselPartialModel(multiCarouselItems)" />
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--Section: Rooms Desktop-->
+            <!--Section: Rooms Mobile-->
+            <div class="container-fluid bg-black d-block d-lg-none">
+                <div class="row">
+                    <h3 class="py-5 text-center text-white m-0" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="1200"><strong>Rooms</strong></h3>
+                    @{
+                        multiCarouselItems = new List<MultiCarouselItemPartialModel>();
+
+                        index = 0;
+
+                        foreach (var room in Model.SelectedHostel.Rooms)
+                        {
+                            modalId = "roomModal" + index;
+                            altText = $"<h5>{room.RoomType}</h5>{room.RoomDescription.Replace("\\r", " ").Replace("\\n", " ")}";
+
+                            multiCarouselItems.Add(new MultiCarouselItemPartialModel(room.RoomImageUrl, altText, modalId, room.RoomType));
+                        }
+
+                        <partial name="_MultiCarouselPartial" model="new MultiCarouselPartialModel(multiCarouselItems)" />
+                    }
+                </div>
+            </div>
+            <!--Section: Rooms Mobile-->
+        }
+
+        <!--Section: Design Your Trip-->
+        var designYourTripCssClass = "bg-primary";
+        <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel(designYourTripCssClass)" />
+        <!--Section: Design Your Trip-->
+
+        index = 0;
+
+        foreach (var localTrip in Model.SelectedHostel.LocalTrips)
+        {
+            modalId = "localTripModal" + index;
+            <partial name="_ImageModalPartial" model="new ImageModalPartialModel(modalId, localTrip.Title, localTrip.ImageUrl, localTrip.Description)" />
+
+            index++;
+        }
+
+        index = 0;
+        foreach (var room in Model.SelectedHostel.Rooms)
+        {
+            modalId = "roomModal" + index;
+            var body = room.RoomDescription.Replace("\\r", " ").Replace("\\n", " ");
+
+            <partial name="_ImageModalPartial" model="new ImageModalPartialModel(modalId, room.RoomType, room.RoomImageUrl, body)" />
+
+            index++;
+        }
+    }
+}

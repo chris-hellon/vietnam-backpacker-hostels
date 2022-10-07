@@ -1,0 +1,52 @@
+﻿@page "/about-us/city-guides"
+@model VietnamBackpackerHostels.UI.Pages.AboutUs.CityGuides.IndexModel
+@section Styles {
+    <style type="text/css">
+        .custom-mt {
+            margin-top: -280px;
+        }
+
+        @@media (max-width: 500px) {
+            .custom-mt {
+                margin-top: -485px;
+            }
+        }
+    </style>
+}
+
+@{
+    ViewData["Title"] = "City Guides";
+
+    <!--Section: Category Header-->
+    <div class="custom-height mt-n5 py-3 py-lg-5 bg-black">
+        <div class="container py-5">
+            <div class="row my-4">
+                <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                    <h1 class="display-4 fw-bold ls-tight">City Guides</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Section: Category Header-->
+
+    <!--Section: Categories-->
+    <div class="container bg-white rounded-6 position-relative pt-3 px-3 custom-mt">
+        @if (Model.CityGuides.Any())
+        {
+            if (Model.CityGuides.Count() > 0)
+            {
+                foreach (var cityGuide in Model.CityGuides)
+                {
+                    <partial name="_PageCardSectionPartial" model="cityGuide" />
+                }
+            }
+        }
+    </div>
+    <!--Section: Categories-->
+
+    <!--Section: Design Your Trip-->
+    var designYourTripCssClass = "bg-dark";
+    <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel(designYourTripCssClass)" />
+    <!--Section: Design Your Trip-->
+}
+

@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-VietnamBackpackerHostels.UI-103C4E58-3B47-4E3B-BDE1-4B246A9566EF</UserSecretsId>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.28" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.29" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.28" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.28" />
+    <PackageReference Include="Rollbar.NetCore.AspNet" Version="5.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.29" />
+    <PackageReference Include="AspNetCore.SEOHelper" Version="1.0.1" />
+    <PackageReference Include="AspNetCore.ReCaptcha" Version="1.5.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ProjectBase\ProjectBase.Core\ProjectBase.Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProjectBase\ProjectBase.Infrastructure\ProjectBase.Infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\VietnamBackpackerHostels.Infrastructure\VietnamBackpackerHostels.Infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\VietnamBackpackerHostels.Core\VietnamBackpackerHostels.Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Rollbar.NetCore.AspNet" />
+    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Pages\RobotsTxt\" />
+    <None Remove="Pages\Sitemap\" />
+    <None Remove="AspNetCore.SEOHelper" />
+    <None Remove="AspNetCore.ReCaptcha" />
+    <None Remove="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\RobotsTxt\" />
+    <Folder Include="Pages\Sitemap\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\SiteMaintenance.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\SiteMaintenance.html" />
+  </ItemGroup>
+</Project>

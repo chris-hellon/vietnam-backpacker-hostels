@@ -1,0 +1,247 @@
+﻿@page "/explore/{category}/{tripName}"
+@model VietnamBackpackerHostels.UI.Pages.Trip.IndexModel
+@using VietnamBackpackerHostels.UI.Pages.Shared;
+@using ProjectBase.Core.Utils
+@{
+    ViewData["Title"] = Model.SelectedTrip.Title;
+
+    <div class="custom-height mt-n5 py-5 bg-black">
+        <div class="container py-5">
+            <div class="row my-4">
+                <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                    <h1 class="display-4 fw-bold ls-tight">Explore</h1>
+                    <h4 class="mb-0 text-light opacity-50">@Model.SelectedTrip.Title @(Model.SelectedTrip.Id != 10 ? $"- {Model.TripLocation.Name}" : "")</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container custom-mt">
+        <div class="row g-0 mb-3 align-items-center">
+            <div class="col-lg-7 mb-4 mb-lg-0" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                <img src="@Model.SelectedTrip.BackgroundImageUrl" class="w-100 rounded-6" alt="@Model.SelectedTrip.Title" />
+            </div>
+            <div class="col-lg-5">
+                <div class="card cascading-left rounded-6 shadow-5" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-right" data-mdb-animation-delay="400" data-mdb-animation-duration="800">
+                    <div class="card-body px-4 p-4 p-md-5 p-lg-4 p-xl-5">
+                        @{
+                            <div class="row g-0">
+                                <div class="col-lg-8">
+                                    <h3 class="mb-4 text-black float-left">@Model.SelectedTrip.Title</h3>
+
+                                </div>
+                                <div class="col-lg-4 mb-2 mb-lg-0 text-lg-end">
+                                    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#enquireNowModal">
+                                        Enquire Now <i class="fas fa-angle-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            Dictionary<string, string> tripInformationValues = new Dictionary<string, string>();
+
+                            bool priceExists = !string.IsNullOrEmpty(Model.SelectedTrip.Price);
+                            bool paxQuantityExists = !string.IsNullOrEmpty(Model.SelectedTrip.PaxQuantity);
+                            bool addressExists = !string.IsNullOrEmpty(Model.SelectedTrip.Address);
+                            bool telphoneNumberExists = !string.IsNullOrEmpty(Model.SelectedTrip.TelephoneNumber);
+                            bool durationExists = !string.IsNullOrEmpty(Model.SelectedTrip.Duration);
+
+                            if (priceExists)
+                                tripInformationValues.Add("fa-money-check-dollar", $"$ {Model.SelectedTrip.Price}");
+
+                            if (paxQuantityExists)
+                                tripInformationValues.Add("fa-user-group", Model.SelectedTrip.PaxQuantity);
+
+                            if (durationExists)
+                                tripInformationValues.Add("fa-clock", Model.SelectedTrip.Duration);
+
+                            if (telphoneNumberExists)
+                                tripInformationValues.Add("fa-phone", Model.SelectedTrip.TelephoneNumber);
+
+                            if (addressExists)
+                                tripInformationValues.Add("fa-location-pin", Model.SelectedTrip.Address);
+
+                            if (tripInformationValues.Count > 0)
+                            {
+                                var index = 0;
+                                var valuesCount = tripInformationValues.Count;
+
+                                <div class="row">
+                                    @foreach (var tripInformationValue in tripInformationValues)
+                                    {
+                                        var cssClass = index < 2 && valuesCount > 1 ? "col-lg-6" : "col-lg-12";
+                                        <div class="@cssClass mb-2">
+                                            <span class="badge bg-black p-2 w-100"><i class="fas @tripInformationValue.Key dark-grey-text" aria-hidden="true"></i> @tripInformationValue.Value</span>
+                                        </div>
+
+                                        index++;
+                                    }
+                                </div>
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 mb-4" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-show-on-load="false" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                <p class="text-muted mb-4">@Html.Raw(Model.SelectedTrip.Description)</p>
+
+                @if (!string.IsNullOrEmpty(Model.SelectedTrip.WhatsIncluded))
+                {
+                    <p><strong>What's Included?</strong></p>
+
+                    @Html.Raw(Model.SelectedTrip.WhatsIncluded)
+                }
+
+                @if (!string.IsNullOrEmpty(Model.SelectedTrip.WhatsNotIncluded))
+                {
+                    <p><strong>What's not Included?</strong></p>
+
+                    @Html.Raw(Model.SelectedTrip.WhatsNotIncluded)
+                }
+            </div>
+        </div>
+    </div>
+
+    if (Model.TripDays.Any())
+    {
+        <div class="container-fluid p-0" style="background-color: #F0F2F5;">
+            <h3 class="text-white w-100 text-center m-0 py-2 position-relative bg-black" style="z-index:2">Itinerary</h3>
+            <div class="container">
+                <div class="row">
+                    @{
+                        if (Model.TripDays.Where(td => !string.IsNullOrEmpty(td.DayTitle)).Any())
+                        {
+                            var index = 0;
+                            foreach (var tripDay in Model.TripDays)
+                            {
+                                var cssClass = index == 0 ? "pt-5 pb-3 py-lg-5" : index + 1 == Model.TripDays.Count() ? "pb-5 py-lg-5" : "";
+                                <div class="col-lg-6 @cssClass">
+                                    <partial name="Trip/Shared/_TripDayPartial" model="tripDay" />
+                                </div>
+
+                                index++;
+                            }
+                        }
+                        else
+                        {
+                            <div class="main-timeline-2 py-5">
+
+                                @{
+                                    var alignment = "left-2";
+                                    var animationDelay = 200;
+                                    foreach (var tripDay in Model.TripDays)
+                                    {
+                                        <div class="timeline-2 @alignment" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="@animationDelay" data-mdb-animation-duration="800">
+                                            <partial name="Trip/Shared/_TripDayPartial" model="tripDay" />
+                                        </div>
+
+                                        if (alignment == "left-2")
+                                            alignment = "right-2";
+                                        else
+                                            alignment = "left-2";
+
+                                        animationDelay += 200;
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    if (Model.ImportantInformation.Any())
+    {
+        <!--Section: Important Information-->
+        <div class="container-fluid p-0">
+            <h3 class="text-white w-100 text-center m-0 py-2 position-relative bg-primary">The Important Stuff</h3>
+            <div class="container pt-5 pb-4" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="300" data-mdb-animation-duration="800">
+                @foreach (var importantInformation in Model.ImportantInformation)
+                {
+                    <partial name="Trip/Shared/_ImportantInformationPartial" model="importantInformation" />
+                }
+            </div>
+        </div>
+        <!--Section: Important Information-->
+    }
+
+    if (Model.RelatedTrips.PageSectionContent.Any())
+    {
+        <!--Section: Related Trips-->
+        <div class="container-fluid p-0">
+            <h3 class="text-white w-100 text-center m-0 py-2 position-relative bg-black">More Like This</h3>
+            <div class="container pt-5 pb-4">
+                <partial name="_PageCardSectionPartial" model="Model.RelatedTrips" />
+            </div>
+        </div>
+        <!--Section: Related Trips-->
+    }
+
+    <!--Section: Design Your Trip-->
+    var designYourTripCssClass = "bg-primary";
+    <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel(designYourTripCssClass)" />
+    <!--Section: Design Your Trip-->
+
+    <div class="modal fade" id="enquireNowModal" tabindex="-1" aria-labelledby="enquireNowModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="enquireNowModalLabel">Enquire Now</h5>
+                </div>
+                <form method="post">
+                    <input asp-for="EnquireNowInput.TripName" type="hidden" />
+                    <input asp-for="EnquireNowInput.Category" type="hidden" />
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-outline mb-4">
+                                        <input asp-for="EnquireNowInput.Name" class="form-control" aria-required="true" />
+                                        <label asp-for="EnquireNowInput.Name" class="form-label"></label>
+                                        <span asp-validation-for="EnquireNowInput.Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-outline mb-4">
+                                        <input asp-for="EnquireNowInput.Email" class="form-control" aria-required="true" />
+                                        <label asp-for="EnquireNowInput.Email" class="form-label"></label>
+                                        <span asp-validation-for="EnquireNowInput.Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-outline mb-4 datepicker-disable-past position-relative" data-mdb-toggle-button="false" data-mdb-format="dd/mm/yyyy">
+                                        <input asp-for="EnquireNowInput.Date" type="text" class="form-control" data-mdb-toggle="datepicker" />
+                                        <label asp-for="EnquireNowInput.Date" class="form-label"></label>
+                                        <span asp-validation-for="EnquireNowInput.Date" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-outline mb-4">
+                                        <input asp-for="EnquireNowInput.NumberOfPeople" class="form-control" aria-required="true" />
+                                        <label asp-for="EnquireNowInput.NumberOfPeople" class="form-label"></label>
+                                        <span asp-validation-for="EnquireNowInput.NumberOfPeople" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-outline">
+                                        <textarea class="form-control" asp-for="EnquireNowInput.AdditionalInformation" rows="4"></textarea>
+                                        <label class="form-label" asp-for="EnquireNowInput.AdditionalInformation"></label>
+                                        <span asp-validation-for="EnquireNowInput.AdditionalInformation" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+

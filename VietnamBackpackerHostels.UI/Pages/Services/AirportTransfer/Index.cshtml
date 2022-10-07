@@ -1,0 +1,142 @@
+﻿@page "/services/airport-transfer"
+@model VietnamBackpackerHostels.UI.Pages.Services.AirportTransfer.IndexModel
+@{
+    ViewData["Title"] = "Airport Transfer";
+
+    <div class="custom-height mt-n5 py-3 py-lg-5 bg-black">
+        <div class="container py-5">
+            <div class="row my-4">
+                <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                    <h1 class="display-4 fw-bold ls-tight">Airport Transfer</h1>
+                    <h4 class="mb-0 text-gray text-shadow-0">No matter where you are in Vietnam, VBH has got you covered...</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Section: Form-->
+    <div class="container bg-white rounded-6 position-relative pt-3 px-3 custom-mt">
+        <div class="row">
+            <div class="col-lg-6">
+                <p>Please make sure all of your details are correct. If any of your flight details change, be sure to let the team know.</p>
+                <p>Once your request has been submitted, you will be contacted by a member of our Online Team and sent a payment request link (4.5% surcharge).</p>
+                <p>For any group transportation requests larger than 6 people, please contact our online team directly <a asp-page="/Contact/Index"><strong>here</strong></a>.</p>
+            </div>
+            <div class="col-lg-6">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-outline mb-4">
+                                <input asp-for="Input.Name" class="form-control" aria-required="true" />
+                                <label asp-for="Input.Name" class="form-label"></label>
+                                <span asp-validation-for="Input.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-outline mb-4">
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                                <label asp-for="Input.Email" class="form-label"></label>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline mb-4 datepicker-disable-past position-relative" data-mdb-toggle-button="false" data-mdb-format="dd/mm/yyyy">
+                                <input asp-for="Input.DateOfArrival" type="text" class="form-control" data-mdb-toggle="datepicker" />
+                                <label asp-for="Input.DateOfArrival" class="form-label"></label>
+                                <span asp-validation-for="Input.DateOfArrival" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-4 position-relative">
+                                <select asp-for="Input.Destination" class="select">
+                                    <option value="" hidden selected></option>
+                                    @if (Model.HostelLocations.Any())
+                                    {
+                                        foreach (var hostelLocation in Model.HostelLocations)
+                                        {
+                                            <option value="@hostelLocation.Name">@hostelLocation.Name</option>
+                                        }
+                                    }
+                                </select>
+                                <label asp-for="Input.Destination" class="form-label select-label"></label>
+                                <span asp-validation-for="Input.Destination" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-4 position-relative">
+                                <select asp-for="Input.TypeOfTransport" class="select">
+                                    <option value="" hidden selected></option>
+                                    <option value="" disabled>Select a Destination</option>
+                                </select>
+                                <label asp-for="Input.TypeOfTransport" class="form-label select-label"></label>
+                                <span asp-validation-for="Input.TypeOfTransport" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-4 position-relative">
+                                <select asp-for="Input.NumberOfPax" class="select">
+                                    <option value="" hidden selected></option>
+                                    <option value="" disabled>Select a Transport Type</option>
+                                </select>
+                                <label asp-for="Input.NumberOfPax" class="form-label select-label"></label>
+                                <span asp-validation-for="Input.NumberOfPax" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline mb-4">
+                                <input asp-for="Input.FlightDetails" class="form-control" />
+                                <label asp-for="Input.FlightDetails" class="form-label"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+                </form>
+            </div>
+        </div>
+
+        <partial name="_PageCardSectionPartial" model="Model.RelatedServices" />
+    </div>
+    <!--Section: Form-->
+}
+
+@section Scripts {
+    <script type="text/javascript">$("document").ready(function () {
+            $('#Input_Destination').on('change', function () {
+                let value = $(this).val();
+                let typeOfTransports = [];
+
+                switch (value) {
+                    case "Hoi An":
+                        typeOfTransports.push({ "value": "4 Seat Private Car (Max 3 people) $17USD", "maxCapactity": 3 });
+                        typeOfTransports.push({ "value": "7 Seat Private Car (Max 6 People) $20USD", "maxCapactity": 6 });
+                        break;
+                    case "Hue":
+                        typeOfTransports.push({ "value": "4 Seat Private Car (Max 3 people) $17USD", "maxCapactity": 3 });
+                        typeOfTransports.push({ "value": "7 Seat Private Car (Max 6 People) $20USD", "maxCapactity": 6 });
+                        break;
+                }
+
+                $('#Input_TypeOfTransport').html('<option value="" selected hidden>Select Type of Transport</option>');
+                $(typeOfTransports).each(function (i, v) {
+                    $('#Input_TypeOfTransport').append('<option data-max-capacity="' + v.maxCapactity + '" value="' + v.value + '">' + v.value + '</option>');
+                });
+            });
+
+            $('#Input_TypeOfTransport').on('change', function () {
+                let value = $(this).val();
+                let maxCapacity = $(this).find('option:selected').data('max-capacity');
+
+                $('#Input_NumberOfPax').html('<option value="" hidden selected>Select Number of Pax</option>');
+                for (var i = 0; i < maxCapacity; i++) {
+                    $('#Input_NumberOfPax').append('<option value="' + (i + 1) + '">' + (i + 1) + '</option>');
+                }
+            });
+        });</script>
+}

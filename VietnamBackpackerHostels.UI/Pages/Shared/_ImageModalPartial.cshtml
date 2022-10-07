@@ -1,0 +1,21 @@
+﻿@model VietnamBackpackerHostels.UI.Pages.Shared.ImageModalPartialModel
+
+<!--Section: Image Modal -->
+<div class="modal" id="@Model.ModalId" tabindex="-1" aria-labelledby="@(Model.ModalId)Label" aria-hidden="true" data-mdb-backdrop="static"
+     data-mdb-keyboard="false">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-black" id="@(Model.ModalId)Label">@Model.Title</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img class="img-fluid mb-2" src="@Model.ImageUrl" />
+                @Html.Raw(Model.Body)
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@model VietnamBackpackerHostels.Core.Models.Image
+
+<div class="carousel-item parallax @(Model.Index == 0 ? "active" : "")" data-mdb-image-src="@Model.ImageUrl">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white text-center">
+                @if (Model.Title != null)
+                {
+                    @Html.Raw(Model.Title)
+                }
+                @if (Model.Subtitle != null)
+                {
+                    @Html.Raw(Model.Subtitle)
+                }
+                @if (Model.Url1 != null)
+                {
+                    <a class="btn btn-primary btn-lg m-2" href="@Model.Url1" role="button" rel="nofollow" target="_blank">Book a Bed</a>
+                }
+                @if (Model.Url2 != null)
+                {
+                    <a class="btn btn-primary btn-lg m-2" href="@Model.Url2" role="button" rel="nofollow" target="_blank">Book a Bed</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@model VietnamBackpackerHostels.Core.Models.PageSectionContent
+
+<div class="@Model.CssClass col-md-12 mb-4" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="@Model.AnimationDelay" data-mdb-animation-duration="1200">
+    <div class="card p-3 bg-image position-relative text-white h-100" style="background-image: url(@Model.ImageUrl);">
+
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+
+        </div>
+
+        <div class="container d-flex flex-column align-items-center justify-content-center text-center h-100 position-relative">
+            <div class="text-white">
+                <div class="text-info header-font mb-2">
+                    <i class="fas @Model.IconClass"></i>
+                    @Model.Category
+                </div>
+
+                <h4 class="header-font">@Model.Title</h4>
+
+                <div class="pt-3">
+                    @Html.Raw(Model.Body)
+                </div>
+
+                @if (Model.NavigatePage != null)
+                {
+                    <div class="mt-auto">
+                        @if (Model.TripName != null)
+                        {
+                            <a asp-page="@Model.NavigatePage" asp-route-category="@Model.NavigatePageCategory" asp-route-tripName="@Model.TripName" class="btn btn-primary align-bottom">Read More <i class="fas fa-angle-right ms-1"></i></a>
+                        }
+                        else
+                        {
+                            <a asp-page="@Model.NavigatePage" asp-route-category="@Model.NavigatePageCategory" class="btn btn-primary align-bottom">Read More <i class="fas fa-angle-right ms-1"></i></a>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

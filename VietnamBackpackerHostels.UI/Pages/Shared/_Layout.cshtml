@@ -1,0 +1,195 @@
+﻿@model VietnamBackpackerHostels.UI.Models.Shared.BasePageModel
+@using VietnamBackpackerHostels.UI.Pages.Shared
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en" class="no-scrollbar">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    @{
+        var title = ViewData["Title"] != null && ViewData["Title"]?.ToString()?.Length > 0 ? ViewData["Title"]?.ToString() + " - Vietnam Backpacker Hostels - MORE THAN JUST A BED!" : "Vietnam Backpacker Hostels - MORE THAN JUST A BED!";
+
+        <title>@title</title>
+    }
+
+    <meta name="description" content="Started in 2004 by two Aussies who converted a former diplomats house there are now 7 hostels. At Vietnam Backpacker Hostels, we provide the world's best hostels by delivering quality products and unique experiences to our customers." />
+    <meta name="keywords" content="Hanoi, Hue, vietnam, viet nam, halong bay, hostel, hotel, backpackers, travel tips, accommodation, dorm, private rooms, Vietnam Backpackers, Vietnam, Backpacker, Backpackers, Travel, Hostel, Traveling, South East Asia, travel agents, solo travel, traveling solo, afforabable travel, cheap hostels vietnam, tours, trips, Vietnam tours" />
+    <link href="https://vietnambackpackerhostels.com" rel="home" />
+
+    <!-- Favicon -->
+    <link href="https://vietnambackpackerhostels.azureedge.net/main/vbh-red-buffalo.ico" rel="icon">
+
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"></noscript>
+
+    <link href="https://vietnambackpackerhostels.azureedge.net/site-content/mdb.min.css" rel="stylesheet">
+
+    <link rel="preload" href="https://vietnambackpackerhostels.azureedge.net/site-content/mdb.plugins.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://vietnambackpackerhostels.azureedge.net/site-content/mdb.plugins.min.css"></noscript>
+
+    <style type="text/css">
+        @@font-face {
+            font-family: 'Brandon Printed';
+            src: url('/fonts/brandonprinted-two-webfont.woff2') format('woff2'), url('/fonts/brandonprinted-two-webfont.woff2') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+
+    <link href="https://vietnambackpackerhostels.azureedge.net/site-content/site.min.css" rel="stylesheet" />
+
+    @await RenderSectionAsync("Styles", required: false)
+
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-2004821-1"></script>
+    <script type="text/javascript" defer>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'UA-2004821-1', { 'linker': { 'domains': ["vietnambackpackerhostels.junction6travel.com", "junction6travel.com", "vietnambackpackerhostels.com"] } }); (function (i, s, o, g, r, a, m) { i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m) })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga'); ga('create', 'UA-2004821-1', { "cookieDomain": "auto", "allowLinker": true }); ga('require', 'linker'); ga('linker:autoLink', ["vietnambackpackerhostels.junction6travel.com", "junction6travel.com", "vietnambackpackerhostels.com"]);</script>
+    <script type="text/javascript" defer>function gtag_report_conversion(url) { $('#pre-loader-overlay').fadeIn(); var callback = function () { if (typeof (url) != 'undefined') { window.location = url; } }; gtag('event', 'conversion', { 'send_to': 'AW-787762901/W_GhCOTQ748BENWd0fcC', 'transaction_id': '', 'event_callback': callback }); return false; }</script>
+</head>
+<body>
+    @{
+        var httpContext = HttpContextAccessor.HttpContext;
+
+        if (httpContext != null)
+        {
+            var currentPath = httpContext.Request.Path.Value != null ? httpContext.Request.Path.Value : "/";
+
+            if (!currentPath.Contains("book-a-bed"))
+            {
+                <!-- Messenger Chat plugin Code -->
+                <div id="fb-root"></div>
+
+                <!-- Your Chat plugin code -->
+                <div id="fb-customer-chat" class="fb-customerchat">
+                </div>
+
+                <script>var chatbox = document.getElementById('fb-customer-chat');
+                    chatbox.setAttribute("page_id", "138877962826153");
+                    chatbox.setAttribute("attribution", "biz_inbox");</script>
+
+                <!-- Your SDK code -->
+                <script>window.fbAsyncInit = function () {
+                        FB.init({
+                            xfbml: true,
+                            version: 'v13.0'
+                        });
+                    };
+
+                    (function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+            }
+        }
+    }
+
+
+    <!--Section: Loader-->
+    <div class="vh-100 w-100 position-fixed top-0 start-0 bg-black text-center pre-loader">
+        <div class="spinner-grow text-primary d-block mb-3" role="status">
+
+        </div>
+        <span class="text-white header-font d-block" style="font-family: 'Brandon Printed', 'Roboto', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Loading</span>
+    </div>
+    <!--Section: Loader-->
+    <!--Section: Main Header-->
+    <partial name="_HeaderBannerPartial" model="new HeaderBannerPartialModel(Model.HostelLocations, Model.TripLocations, Model.BannerImages, Model.Hostels)" />
+    <!--Section: Main Header-->
+    <!--Section: Main Content-->
+    <main class="mt-5 position-relative bg-white">
+        @RenderBody()
+    </main>
+    <!--Section: Main Content-->
+    <!--Section: Footer-->
+    <partial name="_FooterPartial" model="new FooterPartialModel(Model.HostelLocations, Model.TripLocations)" />
+    <!--Section: Footer-->
+
+    <script type="text/javascript" src="https://vietnambackpackerhostels.azureedge.net/site-content/jquery.min.js"></script>
+    <script type="text/javascript" src="https://vietnambackpackerhostels.azureedge.net/site-content/lib.bundle.min.js" async></script>
+    <script type="text/javascript" src="https://vietnambackpackerhostels.azureedge.net/site-content/mdb.min.js"></script>
+    <script type="text/javascript" src="https://vietnambackpackerhostels.azureedge.net/site-content/site.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- Cookies Modal -->
+    <div class="modal fade bottom" id="cookiesModal" tabindex="-1" aria-labelledby="cookiesModalLabel" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-frame modal-bottom">
+            <div class="modal-content rounded-0">
+                <div class="modal-body py-1">
+                    <div class="d-flex justify-content-center align-items-center my-3">
+                        <p class="mb-0">We use cookies to improve your website experience</p>
+                        <button type="button" class="btn btn-secondary btn-sm ms-2" data-mdb-dismiss="modal">
+                            Ok, thanks
+                        </button>
+                        <a class="btn btn-primary btn-sm ms-2" asp-page="/TermsAndConditions/Index">Learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cookies Modal -->
+
+    @{
+        if (ViewData["SuccessMessage"] != null)
+        {
+            <!-- Success Message Modal -->
+            <div class="modal fade" id="successMessageModal" tabindex="-1" aria-labelledby="successMessageModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title" id="successMessageModalLabel">Success</h5>
+                        </div>
+                        <div class="modal-body">
+                            @Html.Raw(ViewData["SuccessMessage"].ToString())
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-mdb-target="#successMessageModal" data-mdb-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Success Message Modal -->
+            <script type="text/javascript">$(window).on('load', function () {
+                    const myModalEl = document.getElementById('successMessageModal');
+                    const modal = new mdb.Modal(myModalEl);
+                    modal.show();
+                });</script>
+
+            ViewData["SuccessMessage"] = null;
+        }
+        else if (ViewData["ErrorMessage"] != null)
+        {
+            <!-- Error Message Modal -->
+            <div class="modal fade" id="errorMessageModal" tabindex="-1" aria-labelledby="errorMessageModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title" id="errorMessageModalLabel">Error</h5>
+                        </div>
+                        <div class="modal-body">
+                            @Html.Raw(ViewData["ErrorMessage"].ToString())
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Error Message Modal -->
+
+            <script type="text/javascript">$(window).on('load', function () {
+                    const myModalEl = document.getElementById('errorMessageModal');
+                    const modal = new mdb.Modal(myModalEl);
+                    modal.show();
+                });</script>
+
+            ViewData["ErrorMessage"] = null;
+        }
+    }
+</body>
+</html>

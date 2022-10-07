@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!--Section: Login Container -->
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownServices" role="button" aria-expanded="false">My VBH</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownServices">
+                @*<li>
+                    <a class="dropdown-item text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">My Account</a>
+                </li>*@
+                <li>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                        <button type="submit" class="dropdown-item text-dark">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownServices" role="button" aria-expanded="false">My VBH</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownServices">
+                <li>
+                    <a class="dropdown-item text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                </li>
+                <li>
+                    <a class="dropdown-item text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                </li>
+            </ul>
+        </li>
+    }
+</ul>
+

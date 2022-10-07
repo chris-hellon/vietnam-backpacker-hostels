@@ -1,0 +1,40 @@
+﻿@model VietnamBackpackerHostels.Core.Models.PageSection
+@{
+    if (Model.PageSectionContent.Any())
+    {
+        var contentCount = Model.PageSectionContent.Count();
+        var cssClass = contentCount % 3 == 0 ? "col-lg-4" : contentCount % 2 == 0 ? "col-lg-6" : "col-lg-12";
+        var animationDely = 400;
+
+        <div class="row">
+            @if (!string.IsNullOrEmpty(Model.Title))
+            {
+                <h3 class="mb-5 mt-4 text-black text-center"><strong>@Model.Title</strong></h3>
+            }
+
+            @if (Model.PageSectionContent.Count() == 1)
+            {
+                var sectionContent = Model.PageSectionContent.First();
+                sectionContent.CssClass = "col-lg-6";
+                sectionContent.AnimationDelay = animationDely;
+
+                <div class="col-lg-12 d-flex align-items-center justify-content-center">
+                    <partial name="_PageCardSectionContentPartial" model="sectionContent" />
+                </div>
+            }
+            else
+            {
+                foreach (var sectionContent in Model.PageSectionContent)
+                {
+                    sectionContent.CssClass = cssClass;
+                    sectionContent.AnimationDelay = animationDely;
+
+                    <partial name="_PageCardSectionContentPartial" model="sectionContent" />
+
+                    animationDely += 200;
+                }
+            }
+        </div>
+    }
+}
+

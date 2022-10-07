@@ -1,0 +1,48 @@
+﻿@page "/services/travel-insurance"
+@model VietnamBackpackerHostels.UI.Pages.Services.TravelInsurance.IndexModel
+@{
+    ViewData["Title"] = "Travel Insurance";
+
+    <div class="custom-height mt-n5 py-3 py-lg-5 bg-black">
+        <div class="container py-5">
+            <div class="row my-4">
+                <div class="col-12" data-mdb-toggle="animation" data-mdb-animation-start="onLoad" data-mdb-animation="fade-in-left" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+                    <h1 class="display-4 fw-bold ls-tight">Travel Insurance</h1>
+                    <h4 class="mb-0 text-gray text-shadow-0">No matter where you are in Vietnam, VBH has got you covered...</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container bg-white rounded-6 position-relative pt-3 px-3 custom-mt">
+        <div class="row mb-3">
+            <div class="col-lg-6">
+                <p>It is important to make sure you have travel insurance sorted for your trip. At VBH we work closely with World Nomads to help provide you with the cover you need.</p>
+                <h6 class="text-black mb-4 mt-4"><strong>Why buy travel insurance through <a href="https://www.worldnomads.com" target="_blank">worldnomads.com</a>?</strong></h6>
+                <ul>
+                    <li>
+                        <p>Backed by specialist insurers and global assistance partners</p>
+                    </li>
+                    <li>
+                        <p><a class="text-primary" href="http://www.worldnomads.com/Turnstile/AffiliateLink?partnerCode=vvvn4m&amp;source=&amp;path=https://www.worldnomads.com/travel-insurance&amp;utm_source=vvvn4m&amp;utm_content=link" target="_blank">Buy online</a>, even if you've already left home</p>
+                    </li>
+                    <li>
+                        <p>Extend and <a class="text-primary" href="http://www.worldnomads.com/Turnstile/AffiliateLink?partnerCode=vvvn4m&amp;source=&amp;path=https://www.worldnomads.com/travel-insurance-claims&amp;utm_source=vvvn4m&amp;utm_content=link" target="_blank">claim online</a> while travelling</p>
+                    </li>
+                    <li>
+                        <p>Covers a range of <a class="text-primary" href="http://www.worldnomads.com/Turnstile/AffiliateLink?partnerCode=vvvn4m&amp;source=&amp;path=https://www.worldnomads.com/adventure-travel-insurance&amp;utm_source=vvvn4m&amp;utm_content=link" target="_blank">adventure sports and activities</a></p>
+                    </li>
+                    <li>
+                        <p><a class="text-primary" href="http://www.worldnomads.com/Turnstile/AffiliateLink?partnerCode=vvvn4m&amp;source=&amp;path=https://www.worldnomads.com/make-a-difference&amp;utm_source=vvvn4m&amp;utm_content=link" target="_blank">Give a little back</a> and support a community development project</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <script src='//www.worldnomads.com/Partner/GetPartnerWidget?partnerCode=vvvn4m&Source=&loadWithPanelExpanded=true&cultureKey=en&cssVariant=landscape' async></script><div id='wn-insurance-quote-editor' style='width:100%;background:url(https:\/\/cdn.worldnomads.net\/Content\/styles\/i\/wn\/external-widgets\/widget-bg-grey.jpg);'></div>
+            </div>
+        </div>
+
+        <partial name="_PageCardSectionPartial" model="Model.RelatedServices" />
+    </div>
+}
+

@@ -1,0 +1,47 @@
+﻿@model VietnamBackpackerHostels.UI.Pages.Shared.MultiCarouselPartialModel
+
+<div class="multi-carousel p-0 m-0">
+    <div class="multi-carousel-inner" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="fade-in" data-mdb-animation-delay="200" data-mdb-animation-duration="1200">
+        @{
+            if (Model.Items.Any())
+            {
+                foreach (var item in Model.Items)
+                {
+                <div class="multi-carousel-item position-relative p-0">
+                    <partial name="_MultiCarouselItemPartial" model="item" />
+
+                    @if (item.ModalId != null)
+                    {
+                        <a href="#" class="mask d-flex flex-column align-items-center justify-content-center" data-mdb-toggle="modal" data-mdb-target="#@(item.ModalId)">
+
+                            @if (item.ModalTitle != null)
+                            {
+                                <h5 class="mb-0 w-60 p-3 text-center" style="background-color: rgba(0, 0, 0, 0.8); white-space:break-spaces">@item.ModalTitle</h5>
+                            }
+                        </a>
+                    }
+
+                    @if (item.FooterTitle != null)
+                    {
+                        <div class="w-100 text-center" style="background-color: rgba(0, 0, 0, 0.8);">
+                            <h5 class="mb-0">@item.FooterTitle</h5>
+                        </div>
+                    }
+                </div>
+                }
+            }
+        }
+    </div>
+    <button class="carousel-control-prev"
+            type="button"
+            tabindex="0"
+            data-mdb-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+    </button>
+    <button class="carousel-control-next"
+            type="button"
+            tabindex="0"
+            data-mdb-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+    </button>
+</div>

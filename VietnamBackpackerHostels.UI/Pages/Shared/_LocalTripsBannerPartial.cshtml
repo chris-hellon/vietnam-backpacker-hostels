@@ -1,0 +1,21 @@
+﻿@model IEnumerable<VietnamBackpackerHostels.UI.Pages.Shared.LocalTripBannerPartialModel>
+
+@{
+    var justifyContent = true;
+
+    foreach (var localTrip in Model)
+    {
+        localTrip.JustifyContent = justifyContent;
+
+        <partial name="_LocalTripBannerPartial" model="localTrip" />
+
+        if (justifyContent)
+        {
+            justifyContent = false;
+        }
+        else
+        {
+            justifyContent = true;
+        }
+    }
+}

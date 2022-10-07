@@ -1,0 +1,14 @@
+﻿@page "/services"
+@model VietnamBackpackerHostels.UI.Pages.Services.IndexModel
+@using VietnamBackpackerHostels.UI.Pages.Shared
+@{
+    ViewData["Title"] = "Services";
+    ViewData["SubTitle"] = " No matter where you are in Vietnam, VBH has got you covered...";
+    <partial name="_PageCategoryPartial" model="new List<VietnamBackpackerHostels.Core.Models.PageSection>() { Model.Services }" />
+
+    <!--Section: Design Your Trip-->
+    var designYourTripCssClass = "bg-dark";
+    <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel(designYourTripCssClass)" />
+    <!--Section: Design Your Trip-->
+}
+

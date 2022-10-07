@@ -1,0 +1,16 @@
+﻿@page "/explore/{category}"
+@model VietnamBackpackerHostels.UI.Pages.TripCategory.IndexModel
+@using VietnamBackpackerHostels.UI.Pages.Shared;
+
+@{
+    ViewData["Title"] = "Explore";
+    ViewData["SubTitle"] = Model != null && Model.TripLocation != null ? Model.TripLocation.Name : "";
+
+    <partial name="_PageCategoryPartial" model="new List<VietnamBackpackerHostels.Core.Models.PageSection>() { Model.Locations }" />
+
+    <!--Section: Design Your Trip-->
+    var designYourTripCssClass = "bg-primary";
+    <partial name="_DesignYourTripPartial" model="new DesignYourTripPartialModel(designYourTripCssClass)" />
+    <!--Section: Design Your Trip-->
+}
+

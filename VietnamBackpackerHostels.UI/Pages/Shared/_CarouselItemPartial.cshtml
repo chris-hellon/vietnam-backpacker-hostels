@@ -1,0 +1,10 @@
+﻿@model VietnamBackpackerHostels.UI.Pages.Shared.CarouselItemPartialModel
+
+@if (Model.AltText != null)
+{
+    <img src="@Model.ImageSrc" data-mdb-img="@Model.ImageSrc" class="d-block w-100" alt="@Model.AltText" />
+}
+else
+{
+    <img src="@Model.ImageSrc" data-mdb-img="@Model.ImageSrc" class="d-block w-100" />
+}

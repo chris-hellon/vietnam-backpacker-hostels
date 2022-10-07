@@ -1,0 +1,10 @@
+﻿@model VietnamBackpackerHostels.UI.Pages.Shared.LocalTripBannerPartialModel
+
+<div class="row g-0 parallax @(Model.JustifyContent ? "justify-content-end" : "") position-relative p-3 p-lg-0" data-mdb-image-src="@Model.ImageUrl">
+    <div class="col-lg-6 my-0 my-lg-5 text-center bg-black bg-opacity-75 text-white p-3 p-lg-5 position-relative" data-mdb-toggle="animation" data-mdb-animation-start="onScroll" data-mdb-animation-on-scroll="once" data-mdb-animation="@(Model.JustifyContent ? "fade-in-right" : "fade-in-left")" data-mdb-animation-delay="200" data-mdb-animation-duration="800">
+        <div class="p-lg-5 p-0">
+            <h6 class="display-5 mb-5 header-font">@Model.Title</h6>
+            @Html.Raw(Model.Body)
+        </div>
+    </div>
+</div>
